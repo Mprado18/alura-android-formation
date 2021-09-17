@@ -1,7 +1,11 @@
 package com.example.students.activity;
 
+import static com.example.students.activity.Constants.STUDENT_KEY;
+
+import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Button;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.EditText;
 
 import androidx.annotation.NonNull;
@@ -13,20 +17,54 @@ import com.example.students.model.Student;
 
 public class StudentsFormActivity extends AppCompatActivity {
 
-    public static final String APPBAR_TITLE = "Formulário de novo Aluno";
+    public static final String APPBAR_TITLE_NEW_STUDENT = "Formulário de novo Aluno";
+    public static final String APPBAR_TITLE_EDIT_STUDENT = "Editar informações do Aluno";
     private EditText name;
     private EditText phone;
     private EditText email;
     private final StudentsDAO dao = new StudentsDAO();
+    private Student student;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_students_form);
 
-        setTitle(APPBAR_TITLE);
         initInputs();
-        configureButtonSaveData();
+        configureStudent();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.save_form_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int itemId = item.getItemId();
+        if (itemId == R.id.save_form_menu) {
+            finishAndSaveFormEdited();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void configureStudent() {
+        Intent bundle = getIntent();
+        if (bundle.hasExtra(STUDENT_KEY)) {
+            setTitle(APPBAR_TITLE_EDIT_STUDENT);
+            student = (Student) bundle.getSerializableExtra(STUDENT_KEY);
+            completeStudentData(student);
+        } else {
+            setTitle(APPBAR_TITLE_NEW_STUDENT);
+            student = new Student();
+        }
+    }
+
+    private void completeStudentData(Student student) {
+        name.setText(student.getName());
+        phone.setText(student.getPhone());
+        email.setText(student.getEmail());
     }
 
     private void initInputs() {
@@ -35,26 +73,24 @@ public class StudentsFormActivity extends AppCompatActivity {
         email = findViewById(R.id.inputEmail);
     }
 
-    @NonNull
-    private Student createStudent() {
+    private void finishAndSaveFormEdited() {
+        createStudent();
+        if (student.hasValidId()) {
+            dao.updateStudent(student);
+        } else {
+            dao.saveStudent(student);
+        }
+
+        finish();
+    }
+
+    private void createStudent() {
         String studentName = name.getText().toString();
         String studentPhone = phone.getText().toString();
         String studentEmail = email.getText().toString();
 
-        return new Student(studentName, studentPhone, studentEmail);
-    }
-
-    private void configureButtonSaveData() {
-        Button buttonSaveData = findViewById(R.id.buttonSaveData);
-        buttonSaveData.setOnClickListener(view -> {
-
-            Student student = createStudent();
-            saveDataStudent(student);
-        });
-    }
-
-    private void saveDataStudent(Student student) {
-        dao.save(student);
-        finish();
+        student.setName(studentName);
+        student.setPhone(studentPhone);
+        student.setEmail(studentEmail);
     }
 }

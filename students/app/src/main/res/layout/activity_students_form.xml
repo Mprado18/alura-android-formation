@@ -32,11 +32,4 @@
         android:padding="16dp"
         android:inputType="textEmailAddress"/>
 
-    <Button
-        android:id="@+id/buttonSaveData"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Salvar"
-        android:layout_margin="8dp"/>
-
 </LinearLayout>
