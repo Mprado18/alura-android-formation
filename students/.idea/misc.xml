@@ -5,6 +5,8 @@
       <map>
         <entry key="..\:/projetos/alura-android-formation/students/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.17407407407407408" />
         <entry key="..\:/projetos/alura-android-formation/students/app/src/main/res/layout/activity_students_form.xml" value="0.20416666666666666" />
+        <entry key="..\:/projetos/alura-android-formation/students/app/src/main/res/layout/activity_students_list.xml" value="0.20416666666666666" />
+        <entry key="..\:/projetos/alura-android-formation/students/app/src/main/res/layout/student_item.xml" value="0.2" />
         <entry key="..\:/projetos/alura-android-formation/students/app/src/main/res/menu/save_form_menu.xml" value="0.20416666666666666" />
         <entry key="..\:/projetos/alura-android-formation/students/app/src/main/res/menu/student_list_item_menu.xml" value="0.20416666666666666" />
       </map>

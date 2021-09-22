@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">Diary</string>
     <string name="remove_student">Remover aluno</string>
+    <string name="input_name">Nome</string>
+    <string name="input_phone">Telefone</string>
+    <string name="input_email">E-mail</string>
+    <string name="save_student_form">Salvar formulário do aluno</string>
+    <string name="floating_action_button">Floating action button</string>
 </resources>

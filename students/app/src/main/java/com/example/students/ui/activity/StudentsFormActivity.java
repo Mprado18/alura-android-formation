@@ -1,6 +1,6 @@
-package com.example.students.activity;
+package com.example.students.ui.activity;
 
-import static com.example.students.activity.Constants.STUDENT_KEY;
+import static com.example.students.ui.activity.Constants.STUDENT_KEY;
 
 import android.content.Intent;
 import android.os.Bundle;
