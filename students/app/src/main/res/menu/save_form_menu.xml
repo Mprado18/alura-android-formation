@@ -5,7 +5,7 @@
     <item
         android:id="@+id/save_form_menu"
         android:icon="@drawable/ic_action_save"
-        android:title="Salvar formulário do aluno"
+        android:title="@string/save_student_form"
         app:showAsAction="always" />
 
 </menu>

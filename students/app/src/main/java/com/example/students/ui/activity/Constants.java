@@ -1,4 +1,4 @@
-package com.example.students.activity;
+package com.example.students.ui.activity;
 
 public interface Constants {
 

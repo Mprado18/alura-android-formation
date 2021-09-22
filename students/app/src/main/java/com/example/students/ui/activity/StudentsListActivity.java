@@ -1,30 +1,27 @@
-package com.example.students.activity;
+package com.example.students.ui.activity;
 
-import static com.example.students.activity.Constants.STUDENT_KEY;
+import static com.example.students.ui.activity.Constants.STUDENT_KEY;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.students.R;
-import com.example.students.dao.StudentsDAO;
 import com.example.students.model.Student;
+import com.example.students.ui.viewmodel.StudentsListViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class StudentsListActivity extends AppCompatActivity {
 
     public static final String APPBAR_TITLE = "Lista de alunos";
-    private final StudentsDAO dao = new StudentsDAO();
-    private ArrayAdapter<Student> adapter;
+    private final StudentsListViewModel viewModel = new StudentsListViewModel(this);
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -40,7 +37,7 @@ public class StudentsListActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        updateStudentsList();
+        viewModel.updateStudentsList();
     }
 
     @Override
@@ -50,50 +47,34 @@ public class StudentsListActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onContextItemSelected(@NonNull MenuItem item) {
+    public boolean onContextItemSelected(MenuItem item) {
         int itemId = item.getItemId();
         if (itemId == R.id.remove_student_menu) {
-            AdapterView.AdapterContextMenuInfo menuInfo =
-                    (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-            Student studentSelected = adapter.getItem(menuInfo.position);
-            removeStudent(studentSelected);
+            viewModel.removeStudentDialog(item);
         }
 
         return super.onContextItemSelected(item);
     }
 
-    private void updateStudentsList() {
-        adapter.clear();
-        adapter.addAll(dao.allStudents());
-    }
-
     private void renderStudentsForm() {
         startActivity(new Intent(
-                        StudentsListActivity.this,
-                        StudentsFormActivity.class)
+                StudentsListActivity.this,
+                StudentsFormActivity.class)
         );
     }
 
     private void configureList() {
         ListView studentsList = findViewById(R.id.studentsList);
 
-        configureAdapter(studentsList);
+        viewModel.configureAdapter(studentsList);
         configureClickListener(studentsList);
         registerForContextMenu(studentsList);
     }
 
-    private void removeStudent(Student studentSelected) {
-        dao.removeStudent(studentSelected);
-        adapter.remove(studentSelected);
-    }
-
     private void configureClickListener(ListView studentsList) {
-        studentsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                Student studentSelected = (Student) adapterView.getItemAtPosition(position);
-                renderEditStudentForm(studentSelected);
-            }
+        studentsList.setOnItemClickListener((adapterView, view, position, id) -> {
+            Student studentSelected = (Student) adapterView.getItemAtPosition(position);
+            renderEditStudentForm(studentSelected);
         });
     }
 
@@ -106,20 +87,8 @@ public class StudentsListActivity extends AppCompatActivity {
         startActivity(saveBundle);
     }
 
-    private void configureAdapter(ListView studentsList) {
-        adapter = new ArrayAdapter<>(
-                this,
-                android.R.layout.simple_list_item_1);
-        studentsList.setAdapter(adapter);
-    }
-
     private void configureAddNewStudentButton() {
         FloatingActionButton addNewStudent = findViewById(R.id.addNewStudent);
-        addNewStudent.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                renderStudentsForm();
-            }
-        });
+        addNewStudent.setOnClickListener(view -> renderStudentsForm());
     }
 }

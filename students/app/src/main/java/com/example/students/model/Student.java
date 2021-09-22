@@ -11,15 +11,7 @@ public class Student implements Serializable {
     private String phone;
     private String email;
 
-    public Student(String name, String phone, String email) {
-        this.name = name;
-        this.phone = phone;
-        this.email = email;
-    }
-
-    public Student() {
-
-    }
+    public Student() { }
 
     public void setName(String name) {
         this.name = name;

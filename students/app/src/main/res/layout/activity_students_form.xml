@@ -9,27 +9,30 @@
         android:id="@+id/inputName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Nome"
+        android:hint="@string/input_name"
         android:layout_margin="8dp"
         android:padding="16dp"
-        android:inputType="text"/>
+        android:inputType="text"
+        android:importantForAutofill="no" />
 
     <EditText
         android:id="@+id/inputPhone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Telefone"
+        android:hint="@string/input_phone"
         android:layout_margin="8dp"
         android:padding="16dp"
-        android:inputType="phone"/>
+        android:inputType="phone"
+        android:importantForAutofill="no" />
 
     <EditText
         android:id="@+id/inputEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="E-mail"
+        android:hint="@string/input_email"
         android:layout_margin="8dp"
         android:padding="16dp"
-        android:inputType="textEmailAddress"/>
+        android:inputType="textEmailAddress"
+        android:importantForAutofill="no" />
 
 </LinearLayout>

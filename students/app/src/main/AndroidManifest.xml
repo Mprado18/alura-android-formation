@@ -3,15 +3,15 @@
     package="com.example.students">
 
     <application
-        android:allowBackup="true"
+        android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Students">
 
-        <activity android:name=".activity.StudentsFormActivity" />
-        <activity android:name=".activity.StudentsListActivity"
+        <activity android:name=".ui.activity.StudentsFormActivity" />
+        <activity android:name=".ui.activity.StudentsListActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
