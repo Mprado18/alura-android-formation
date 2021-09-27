@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Alura Travel</string>
+    <string name="specials">Especiais</string>
+    <string name="brazil">Brasil</string>
+    <string name="sao_paulo">São Paulo</string>
+    <string name="image_package_travel">imagePackageTravel</string>
+</resources>
