@@ -6,6 +6,11 @@
         <entry key="..\:/projetos/AluraTravel/app/src/main/res/drawable/background_label.xml" value="0.188" />
         <entry key="..\:/projetos/AluraTravel/app/src/main/res/layout/activity_main.xml" value="0.20416666666666666" />
         <entry key="..\:/projetos/AluraTravel/app/src/main/res/layout/package_travel_item.xml" value="0.25" />
+        <entry key="..\:/projetos/alura-android-formation/AluraTravel/app/src/main/res/drawable/background_payment_button.xml" value="0.188" />
+        <entry key="..\:/projetos/alura-android-formation/AluraTravel/app/src/main/res/layout/activity_main.xml" value="0.17657657657657658" />
+        <entry key="..\:/projetos/alura-android-formation/AluraTravel/app/src/main/res/layout/activity_package_summary.xml" value="0.22" />
+        <entry key="..\:/projetos/alura-android-formation/AluraTravel/app/src/main/res/layout/activity_payment.xml" value="0.25" />
+        <entry key="..\:/projetos/alura-android-formation/AluraTravel/app/src/main/res/layout/activity_purchase_summary.xml" value="0.25" />
       </map>
     </option>
   </component>

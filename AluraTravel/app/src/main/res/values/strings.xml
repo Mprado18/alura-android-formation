@@ -4,4 +4,20 @@
     <string name="brazil">Brasil</string>
     <string name="sao_paulo">São Paulo</string>
     <string name="image_package_travel">imagePackageTravel</string>
+    <string name="total_price">Preço final:</string>
+    <string name="make_payment">Realizar pagamento</string>
+    <string name="image_of_travel_package">Imagem do pacote de viagem</string>
+    <string name="label_about_payment">Digite as informações do cartão de crédito que você deseja usar para o pagamento.</string>
+    <string name="card_number">Número do cartão</string>
+    <string name="total_to_pay">Valor à pagar:</string>
+    <string name="month">MM</string>
+    <string name="year">AA</string>
+    <string name="cvc">CVC</string>
+    <string name="name_in_creditcard">Nome no cartão</string>
+    <string name="confirm_payment">Confirmar pagamento</string>
+    <string name="alphabet_mask">abcdefghijklmnopqrstuvwxyzçABCDEFGHIJKLMNOPQRSTUVWXYZÇ\u0020</string>
+    <string name="congrats">Parabéns</string>
+    <string name="purchase_success">Compra realizada com sucesso :)</string>
+    <string name="purchase_summary">Confira o resumo da compra:</string>
+    <string name="banner">banner</string>
 </resources>
