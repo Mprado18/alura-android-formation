@@ -1,8 +1,9 @@
 package com.example.aluratravel.model;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
-public class Packages {
+public class Packages implements Serializable {
 
     private final String locale;
     private final String image;

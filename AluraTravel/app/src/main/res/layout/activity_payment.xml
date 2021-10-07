@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.activity.PaymentActivity">
+
+    <TextView
+        android:id="@+id/aboutPayment"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:gravity="center"
+        android:text="@string/label_about_payment"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/totalToPay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="@string/total_to_pay"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toStartOf="@id/aboutPayment"
+        app:layout_constraintTop_toBottomOf="@id/aboutPayment" />
+
+    <TextView
+        android:id="@+id/totalPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:textColor="@color/green"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toStartOf="@id/totalToPay"
+        app:layout_constraintTop_toBottomOf="@id/totalToPay"
+        tools:text="R$ 421,50" />
+
+    <EditText
+        android:id="@+id/inputCardNumber"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:hint="@string/card_number"
+        android:importantForAutofill="no"
+        android:inputType="number"
+        android:maxLength="12"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/totalPrice"
+        tools:ignore="TouchTargetSizeCheck" />
+
+    <EditText
+        android:id="@+id/inputMonth"
+        android:layout_width="48dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/month"
+        android:inputType="number"
+        android:maxLength="2"
+        android:minHeight="48dp"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="@id/inputCvc"
+        app:layout_constraintStart_toStartOf="@id/inputCardNumber"
+        android:importantForAutofill="no" />
+
+    <EditText
+        android:id="@+id/inputYear"
+        android:layout_width="48dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:hint="@string/year"
+        android:inputType="number"
+        android:maxLength="2"
+        android:minHeight="48dp"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="@id/inputMonth"
+        app:layout_constraintStart_toEndOf="@id/inputMonth"
+        android:importantForAutofill="no" />
+
+    <EditText
+        android:id="@+id/inputCvc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:drawableStart="@drawable/ic_cvc_creditcard"
+        android:hint="@string/cvc"
+        android:inputType="number"
+        android:maxLength="3"
+        app:layout_constraintEnd_toEndOf="@id/inputCardNumber"
+        app:layout_constraintTop_toBottomOf="@id/inputCardNumber"
+        android:importantForAutofill="no" />
+
+    <EditText
+        android:id="@+id/inputNameCreditCard"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:digits="@string/alphabet_mask"
+        android:hint="@string/name_in_creditcard"
+        android:inputType="text"
+        android:minHeight="48dp"
+        app:layout_constraintEnd_toEndOf="@id/inputCvc"
+        app:layout_constraintStart_toStartOf="@id/inputMonth"
+        app:layout_constraintTop_toBottomOf="@id/inputCvc"
+        android:importantForAutofill="no" />
+
+    <Button
+        android:id="@+id/confirmPayment"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/background_payment_button"
+        android:text="@string/confirm_payment"
+        app:layout_constraintEnd_toEndOf="@id/inputNameCreditCard"
+        app:layout_constraintStart_toStartOf="@id/inputNameCreditCard"
+        app:layout_constraintTop_toBottomOf="@id/inputNameCreditCard" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

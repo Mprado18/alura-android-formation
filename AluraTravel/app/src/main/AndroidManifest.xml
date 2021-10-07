@@ -10,6 +10,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AluraTravel">
         <activity
+            android:name=".ui.activity.PurchaseSummaryActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ui.activity.PaymentActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ui.activity.PackageSummaryActivity"
+            android:exported="true" />
+        <activity
             android:name=".ui.activity.MainActivity"
             android:exported="true">
             <intent-filter>
