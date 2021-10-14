@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">CeepAlura</string>
+    <string name="insert_new_note">Inserir uma nota</string>
+    <string name="title">Titulo</string>
+    <string name="save_new_note">Salvar nova nota</string>
+</resources>
