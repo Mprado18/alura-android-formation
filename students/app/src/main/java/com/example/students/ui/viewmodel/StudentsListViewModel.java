@@ -7,20 +7,21 @@ import android.widget.ListView;
 
 import androidx.appcompat.app.AlertDialog;
 
-import com.example.students.dao.StudentsDAO;
+import com.example.students.database.Database;
+import com.example.students.database.dao.RoomStudentDao;
 import com.example.students.model.Student;
 import com.example.students.ui.adapter.StudentsListAdapter;
 
 public class StudentsListViewModel {
 
     private final Context context;
-    private StudentsListAdapter adapter;
-    private StudentsDAO dao;
+    private final StudentsListAdapter adapter;
+    private final RoomStudentDao dao;
 
     public StudentsListViewModel(Context context) {
         this.context = context;
         this.adapter = new StudentsListAdapter(this.context);
-        this.dao = new StudentsDAO();
+        dao = Database.getInstance(context).getRoomStudentDAO();
     }
 
     public void removeStudentDialog(final MenuItem item) {
@@ -48,7 +49,6 @@ public class StudentsListViewModel {
     }
 
     public void configureAdapter(ListView studentsList) {
-        adapter = new StudentsListAdapter(context);
         studentsList.setAdapter(adapter);
     }
 

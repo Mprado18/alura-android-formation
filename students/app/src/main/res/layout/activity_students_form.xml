@@ -16,6 +16,16 @@
         android:importantForAutofill="no" />
 
     <EditText
+        android:id="@+id/inputLastName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/input_last_name"
+        android:layout_margin="8dp"
+        android:padding="16dp"
+        android:inputType="text"
+        android:importantForAutofill="no" />
+
+    <EditText
         android:id="@+id/inputPhone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

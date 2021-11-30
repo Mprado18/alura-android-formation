@@ -20,13 +20,14 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 public class StudentsListActivity extends AppCompatActivity {
 
     public static final String APPBAR_TITLE = "Lista de alunos";
-    private final StudentsListViewModel viewModel = new StudentsListViewModel(this);
-
+    private StudentsListViewModel viewModel;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_students_list);
+
+        viewModel = new StudentsListViewModel(this);
 
         setTitle(APPBAR_TITLE);
         configureAddNewStudentButton();
