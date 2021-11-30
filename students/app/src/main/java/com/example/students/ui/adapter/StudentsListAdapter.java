@@ -47,7 +47,7 @@ public class StudentsListAdapter extends BaseAdapter {
         Student studentSelected = students.get(position);
 
         TextView studentName = viewCreated.findViewById(R.id.studentName);
-        studentName.setText(studentSelected.getName());
+        studentName.setText(studentSelected.getFullName() + " " + studentSelected.getFormattedDate());
 
         TextView studentPhone = viewCreated.findViewById(R.id.studentPhone);
         studentPhone.setText(studentSelected.getPhone());

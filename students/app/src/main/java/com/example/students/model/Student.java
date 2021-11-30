@@ -1,20 +1,30 @@
 package com.example.students.model;
 
 import androidx.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
+@Entity
 public class Student implements Serializable {
 
+    @PrimaryKey(autoGenerate = true)
     private int id = 0;
     private String name;
+    private String lastName;
     private String phone;
     private String email;
-
-    public Student() { }
+    private Calendar registrationTime = Calendar.getInstance();
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public void setPhone(String phone) {
@@ -25,8 +35,16 @@ public class Student implements Serializable {
         this.email = email;
     }
 
+    public void setRegistrationTime(Calendar registrationTime) {
+        this.registrationTime = registrationTime;
+    }
+
     public String getName() {
         return name;
+    }
+
+    public String getLastName() {
+        return lastName;
     }
 
     public String getPhone() {
@@ -37,10 +55,14 @@ public class Student implements Serializable {
         return email;
     }
 
+    public Calendar getRegistrationTime() {
+        return registrationTime;
+    }
+
     @NonNull
     @Override
     public String toString() {
-        return name;
+        return name + "-" + phone;
     }
 
     public void setId(int id) {
@@ -53,5 +75,14 @@ public class Student implements Serializable {
 
     public boolean hasValidId() {
         return id > 0;
+    }
+
+    public String getFullName() {
+        return name + " " + lastName;
+    }
+
+    public String getFormattedDate() {
+        SimpleDateFormat formatator = new SimpleDateFormat("dd/MM/yyyy");
+        return formatator.format(registrationTime.getTime());
     }
 }
