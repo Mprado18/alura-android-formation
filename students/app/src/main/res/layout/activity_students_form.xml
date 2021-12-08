@@ -36,6 +36,16 @@
         android:importantForAutofill="no" />
 
     <EditText
+        android:id="@+id/inputCellphone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/input_cellphone"
+        android:layout_margin="8dp"
+        android:padding="16dp"
+        android:inputType="phone"
+        android:importantForAutofill="no" />
+
+    <EditText
         android:id="@+id/inputEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

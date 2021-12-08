@@ -7,8 +7,10 @@ import android.widget.ListView;
 
 import androidx.appcompat.app.AlertDialog;
 
+import com.example.students.asynctask.RemoveStudentTask;
+import com.example.students.asynctask.SearchStudentTask;
 import com.example.students.database.Database;
-import com.example.students.database.dao.RoomStudentDao;
+import com.example.students.database.dao.StudentDAO;
 import com.example.students.model.Student;
 import com.example.students.ui.adapter.StudentsListAdapter;
 
@@ -16,7 +18,7 @@ public class StudentsListViewModel {
 
     private final Context context;
     private final StudentsListAdapter adapter;
-    private final RoomStudentDao dao;
+    private final StudentDAO dao;
 
     public StudentsListViewModel(Context context) {
         this.context = context;
@@ -39,13 +41,11 @@ public class StudentsListViewModel {
     }
 
     public void updateStudentsList() {
-        adapter.clear();
-        adapter.addAll(dao.allStudents());
+        new SearchStudentTask(dao, adapter).execute();
     }
 
-    public void removeStudent(Student studentSelected) {
-        dao.removeStudent(studentSelected);
-        adapter.remove(studentSelected);
+    public void removeStudent(Student student) {
+        new RemoveStudentTask(dao, adapter, student).execute();
     }
 
     public void configureAdapter(ListView studentsList) {

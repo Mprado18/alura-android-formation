@@ -9,6 +9,9 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.example.students.R;
+import com.example.students.asynctask.SearchFirstStudentTelephoneTask;
+import com.example.students.database.Database;
+import com.example.students.database.dao.TelephoneDAO;
 import com.example.students.model.Student;
 
 import java.util.ArrayList;
@@ -18,9 +21,11 @@ public class StudentsListAdapter extends BaseAdapter {
 
     private final List<Student> students = new ArrayList<>();
     private final Context context;
+    private final TelephoneDAO dao;
 
     public StudentsListAdapter(Context context) {
         this.context = context;
+        dao = Database.getInstance(context).getTelephoneDAO();
     }
 
     @Override
@@ -47,20 +52,24 @@ public class StudentsListAdapter extends BaseAdapter {
         Student studentSelected = students.get(position);
 
         TextView studentName = viewCreated.findViewById(R.id.studentName);
-        studentName.setText(studentSelected.getFullName() + " " + studentSelected.getFormattedDate());
+        studentName.setText(studentSelected.getFullName());
 
         TextView studentPhone = viewCreated.findViewById(R.id.studentPhone);
-        studentPhone.setText(studentSelected.getPhone());
+        new SearchFirstStudentTelephoneTask(dao, studentSelected.getId(), telephoneFound ->
+                studentPhone.setText(String.format("Telefone: %s", telephoneFound.getNumber()))).execute();
+
+        TextView registrationTime = viewCreated.findViewById(R.id.registrationTime);
+        registrationTime.setText(String.format(
+                "Data de cadastro: %s", studentSelected.getFormattedDate())
+        );
 
         return viewCreated;
     }
 
-    public void clear() {
-        students.clear();
-    }
-
     public void addAll(List<Student> students) {
+        this.students.clear();
         this.students.addAll(students);
+        notifyDataSetChanged();
     }
 
     public void remove(Student studentSelected) {

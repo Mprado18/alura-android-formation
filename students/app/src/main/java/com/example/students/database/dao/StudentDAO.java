@@ -11,10 +11,10 @@ import com.example.students.model.Student;
 import java.util.List;
 
 @Dao
-public interface RoomStudentDao {
+public interface StudentDAO {
 
     @Insert
-    void saveStudent(Student student);
+    Long saveStudent(Student student);
 
     @Query("SELECT * FROM student")
     List<Student> allStudents();

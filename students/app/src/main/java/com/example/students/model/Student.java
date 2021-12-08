@@ -15,7 +15,6 @@ public class Student implements Serializable {
     private int id = 0;
     private String name;
     private String lastName;
-    private String phone;
     private String email;
     private Calendar registrationTime = Calendar.getInstance();
 
@@ -25,10 +24,6 @@ public class Student implements Serializable {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
     }
 
     public void setEmail(String email) {
@@ -47,10 +42,6 @@ public class Student implements Serializable {
         return lastName;
     }
 
-    public String getPhone() {
-        return phone;
-    }
-
     public String getEmail() {
         return email;
     }
@@ -62,7 +53,7 @@ public class Student implements Serializable {
     @NonNull
     @Override
     public String toString() {
-        return name + "-" + phone;
+        return name;
     }
 
     public void setId(int id) {
