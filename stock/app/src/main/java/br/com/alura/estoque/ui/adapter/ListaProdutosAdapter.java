@@ -34,7 +34,8 @@ public class ListaProdutosAdapter extends
         this.context = context;
     }
 
-    public void setOnItemClickRemoveContextMenuListener(OnItemClickRemoveContextMenuListener onItemClickRemoveContextMenuListener) {
+    public void setOnItemClickRemoveContextMenuListener(
+            OnItemClickRemoveContextMenuListener onItemClickRemoveContextMenuListener) {
         this.onItemClickRemoveContextMenuListener = onItemClickRemoveContextMenuListener;
     }
 
@@ -57,6 +58,7 @@ public class ListaProdutosAdapter extends
     }
 
     public void atualiza(List<Produto> produtos) {
+        notifyItemRangeRemoved(0, this.produtos.size());
         this.produtos.clear();
         this.produtos.addAll(produtos);
         this.notifyItemRangeInserted(0, this.produtos.size());
