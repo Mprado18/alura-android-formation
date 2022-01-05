@@ -1,25 +1,32 @@
 package br.com.alura.estoque.ui.activity;
 
+import static br.com.alura.estoque.ui.constants.Constants.MENSAGEM_ERRO_AO_CARREGAR_PRODUTOS;
+import static br.com.alura.estoque.ui.constants.Constants.MENSAGEM_ERRO_AO_EDITAR_PRODUTOS;
+import static br.com.alura.estoque.ui.constants.Constants.MENSAGEM_ERRO_AO_REMOVER_PRODUTOS;
+import static br.com.alura.estoque.ui.constants.Constants.MENSAGEM_ERRO_AO_SALVAR_PRODUTOS;
+import static br.com.alura.estoque.ui.constants.Constants.TITULO_APPBAR;
+
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.List;
+
 import br.com.alura.estoque.R;
-import br.com.alura.estoque.asynctask.BaseAsyncTask;
-import br.com.alura.estoque.database.EstoqueDatabase;
-import br.com.alura.estoque.database.dao.ProdutoDAO;
 import br.com.alura.estoque.model.Produto;
+import br.com.alura.estoque.repository.ProdutosRepository;
 import br.com.alura.estoque.ui.dialog.EditaProdutoDialog;
 import br.com.alura.estoque.ui.dialog.SalvaProdutoDialog;
 import br.com.alura.estoque.ui.adapter.ListaProdutosAdapter;
 
 public class ListaProdutosActivity extends AppCompatActivity {
 
-    private static final String TITULO_APPBAR = "Lista de produtos";
     private ListaProdutosAdapter adapter;
-    private ProdutoDAO dao;
+    private ProdutosRepository repository;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,66 +37,88 @@ public class ListaProdutosActivity extends AppCompatActivity {
         configuraListaProdutos();
         configuraFabSalvaProduto();
 
-        EstoqueDatabase db = EstoqueDatabase.getInstance(this);
-        dao = db.getProdutoDAO();
-
+        repository = new ProdutosRepository(this);
         buscaProdutos();
     }
 
     private void buscaProdutos() {
-        new BaseAsyncTask<>(dao::buscaTodos,
-                resultado -> adapter.atualiza(resultado))
-                .execute();
+        repository.buscaProdutos(new ProdutosRepository.DadosCarregadosCallback<List<Produto>>() {
+            @Override
+            public void quandoSucesso(List<Produto> produtosNovos) {
+                adapter.atualiza(produtosNovos);
+            }
+
+            @Override
+            public void quandoFalha(String erro) {
+                mostraErro(MENSAGEM_ERRO_AO_CARREGAR_PRODUTOS);
+            }
+        });
+    }
+
+    private void mostraErro(String mensagem) {
+        Toast.makeText(this, mensagem, Toast.LENGTH_SHORT).show();
     }
 
     private void configuraListaProdutos() {
         RecyclerView listaProdutos = findViewById(R.id.activity_lista_produtos_lista);
         adapter = new ListaProdutosAdapter(this, this::abreFormularioEditaProduto);
         listaProdutos.setAdapter(adapter);
-        adapter.setOnItemClickRemoveContextMenuListener(this::remove);
-    }
 
-    private void remove(int posicao,
-                        Produto produtoRemovido) {
-        new BaseAsyncTask<>(() -> {
-            dao.remove(produtoRemovido);
-            return null;
-        }, resultado -> adapter.remove(posicao))
-                .execute();
+        adapter.setOnItemClickRemoveContextMenuListener(
+                (posicao, produtoEscolhido) -> {
+                    repository.remove(produtoEscolhido,
+                            new ProdutosRepository.DadosCarregadosCallback<Void>() {
+                                @Override
+                                public void quandoSucesso(Void resultado) {
+                                    adapter.remove(posicao);
+                                }
+
+                                @Override
+                                public void quandoFalha(String erro) {
+                                    mostraErro(MENSAGEM_ERRO_AO_REMOVER_PRODUTOS);
+                                }
+                            });
+                });
     }
 
     private void configuraFabSalvaProduto() {
-        FloatingActionButton fabAdicionaProduto = findViewById(R.id.activity_lista_produtos_fab_adiciona_produto);
+        FloatingActionButton fabAdicionaProduto =
+                findViewById(R.id.activity_lista_produtos_fab_adiciona_produto);
         fabAdicionaProduto.setOnClickListener(v -> abreFormularioSalvaProduto());
     }
 
     private void abreFormularioSalvaProduto() {
-        new SalvaProdutoDialog(this, this::salva).mostra();
-    }
+        new SalvaProdutoDialog(this, produtoCriado ->
+                repository.salva(produtoCriado,
+                        new ProdutosRepository.DadosCarregadosCallback<Produto>() {
+                            @Override
+                            public void quandoSucesso(Produto produtoSalvo) {
+                                adapter.adiciona(produtoSalvo);
+                            }
 
-    private void salva(Produto produto) {
-        new BaseAsyncTask<>(() -> {
-            long id = dao.salva(produto);
-            return dao.buscaProduto(id);
-        }, produtoSalvo ->
-                adapter.adiciona(produtoSalvo))
-                .execute();
+                            @Override
+                            public void quandoFalha(String erro) {
+                                mostraErro(MENSAGEM_ERRO_AO_SALVAR_PRODUTOS);
+                            }
+                        })
+        ).mostra();
     }
 
     private void abreFormularioEditaProduto(int posicao, Produto produto) {
         new EditaProdutoDialog(this, produto,
-                produtoEditado -> edita(posicao, produtoEditado))
-                .mostra();
-    }
+                produtoCriado -> repository.edita(produtoCriado,
+                        new ProdutosRepository.DadosCarregadosCallback<Produto>() {
+                            @Override
+                            public void quandoSucesso(Produto produtoEditado) {
+                                adapter.edita(posicao, produtoEditado);
+                            }
 
-    private void edita(int posicao, Produto produto) {
-        new BaseAsyncTask<>(() -> {
-            dao.atualiza(produto);
-            return produto;
-        }, produtoEditado ->
-                adapter.edita(posicao, produtoEditado))
-                .execute();
+                            @Override
+                            public void quandoFalha(String erro) {
+                                mostraErro(MENSAGEM_ERRO_AO_EDITAR_PRODUTOS);
+                            }
+                        })
+        ).mostra();
     }
-
 
 }
